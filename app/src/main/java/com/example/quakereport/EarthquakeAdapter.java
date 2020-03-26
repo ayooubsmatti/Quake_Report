@@ -13,6 +13,8 @@ import java.util.Date;
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
+    private static final String LOCATION_SEPARATOR = " of ";
+
     private static final String LOG_TAG = EarthquakeAdapter.class.getSimpleName();
 
     /**
@@ -52,17 +54,34 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // Get the {@link AndroidFlavor} object located at this position in the list
         Earthquake currentEarthquake  = getItem(position);
 
+        String originalLocation = currentEarthquake.getLocation();
+        String primaryLocation;
+        String locationOffset;
+
+
+        if (originalLocation.contains(LOCATION_SEPARATOR)) {
+            String[] parts = originalLocation.split(LOCATION_SEPARATOR);
+            locationOffset = parts[0] + LOCATION_SEPARATOR;
+            primaryLocation = parts[1];
+        } else {
+            locationOffset = getContext().getString(R.string.near_the);
+            primaryLocation = originalLocation;
+        }
+
+
+
         // Find the TextView in the list_item.xml layout with the ID version_name
         TextView magnitudeTextView = (TextView) listItemView.findViewById(R.id.magnitude);
         // Get the version name from the current AndroidFlavor object and
         // set this text on the name TextView
         magnitudeTextView .setText(currentEarthquake .getMagnitude());
 
-        // Find the TextView in the list_item.xml layout with the ID version_number
-        TextView locationTextView = (TextView) listItemView.findViewById(R.id.location);
-        // Get the version number from the current AndroidFlavor object and
-        // set this text on the number TextView
-        locationTextView.setText(currentEarthquake .getLocation());
+        TextView primaryLocationView = (TextView) listItemView.findViewById(R.id.primary_location);
+        primaryLocationView.setText(primaryLocation);
+
+        TextView locationOffsetView = (TextView) listItemView.findViewById(R.id.location_offset);
+        locationOffsetView.setText(locationOffset);
+
 
 
         // Create a new Date object from the time in milliseconds of the earthquake
