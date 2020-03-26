@@ -60,7 +60,8 @@ import java.util.ArrayList;
 
                     JSONObject currentEarthquike = earthquikeArray.getJSONObject(i);
                     JSONObject properties = currentEarthquike.getJSONObject("properties");
-                    String magnitude = properties.getString("mag");
+                    // Extract the value for the key called "mag"
+                    double magnitude = properties.getDouble("mag");
                     String location = properties.getString("place");
                     long time = properties.getLong("time");
 
