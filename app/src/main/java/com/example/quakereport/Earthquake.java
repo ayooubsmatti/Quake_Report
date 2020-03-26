@@ -7,7 +7,8 @@ public class Earthquake {
     // Android version number (e.g. 2.3-2.7, 3.0-3.2.6, 4.0-4.0.4)
     private String mLocation;
 
-    private String mDate;
+    /** Time of the earthquake */
+    private long mTimeInMilliseconds;
 
     /*
      * Create a new Earthquake object.
@@ -16,11 +17,11 @@ public class Earthquake {
      * @param vNumber is the corresponding Android version number (e.g. 2.3-2.7)
      * @param image is drawable reference ID that corresponds to the Android version
      * */
-    public Earthquake(String Magnitude, String Location,String Date)
+    public Earthquake(String Magnitude, String Location,long TimeInMilliseconds)
     {
         mMagnitude = Magnitude;
         mLocation = Location;
-        mDate = Date;
+        mTimeInMilliseconds = TimeInMilliseconds;
     }
 
     /**
@@ -38,10 +39,10 @@ public class Earthquake {
     }
 
     /**
-     * Get the Date resource ID
+     * Returns the time of the earthquake.
      */
-    public String getDate() {
-        return mDate;
+    public long getTimeInMilliseconds() {
+        return mTimeInMilliseconds;
     }
 }
 
